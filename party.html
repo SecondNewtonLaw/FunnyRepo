@@ -13,9 +13,19 @@
     <script async src="./external/vanta.dots.min.js"></script>
     <script defer src="./js/audioPlayer.js"></script>
     <script defer>
-    // Audio Instance.
-    let videoInstance = undefined;
+      // Audio Instance.
+      let audioLnk = "./audio/party.mp3";
+      let videoLnk = "./video/skull_rotate.mp4";
+      let videoInstance = undefined;
       let audioInstance = undefined;
+        function rewindToDefault() {
+            audioLnk = "./audio/party.mp3";
+            videoLnk = "./video/skull_rotate.mp4";
+            audioInstance.src = audioLnk;
+            videoInstance.src = videoLnk
+            let btn = document.getElementById("rewindBtn");
+            btn.hidden = true;
+        }
         function defineVideo() {
             videoInstance = document.getElementById("VIDEO_SKULL_ROT");
             videoInstance.volume = 0;
@@ -23,7 +33,7 @@
         }
         function playOrPauseAudio() {
             if (audioInstance === undefined)
-                audioInstance = playAudio("./audio/party.mp3");
+                audioInstance = playAudio(audioLnk);
     
             if (videoInstance === undefined)
                 defineVideo();            
@@ -34,8 +44,6 @@
                 audioInstance.pause();
                 videoInstance.pause();
             }
-                
-            
         }
 
       // Dynamically sets the old CSS background.
@@ -84,9 +92,32 @@
           });
         */
       }
+      const code = "03/19";
+      function requestCode(){
+          let response = window.prompt("What is the \"secret\" code?!", "Ignore if you don't know!");
+          
+          if (response && response !== ""){
+              if (response === code) {
+                  audioInstance = playAudio(audioLnk); // Define Audio.
+                  defineVideo(); // Define video, we need to modify it rn!
+                  console.log("Correct! Proceeding with changes.");
+                  audioLnk = "./audio/happyBirthday.mp3";
+                  videoLnk = "./video/robuxFreeVideo.mp4";
+                  document.querySelector('title').text = "Happy Birthday s0me1!";
+                  videoInstance.src = videoLnk;
+                  audioInstance.src = audioLnk;
+                  let btn = document.getElementById("rewindBtn");
+                  btn.hidden = false;
+                  return undefined;
+              }
+              videoInstance.src = videoLnk;
+          }
+          
+      }
       function startActivity() {
+        requestCode();
         console.log("Starting Audio Playback...");
-        audioInstance = playAudio("./audio/party.mp3");
+        audioInstance = playAudio(audioLnk);
         audioInstance.pause();
         console.log("Audio Playback started.");
         // ----
@@ -97,6 +128,11 @@
     </script>
     <title>Party Momento</title>
     <meta charset="UTF-8" />
+    <meta content="Embed Title" property="og:title" />
+    <meta content="Site Description" property="og:description" />
+    <meta content="https://embed.com/this-is-the-site-url" property="og:url" />
+    <meta content="https://embed.com/embedimage.png" property="og:image" />
+    <meta content="#43B581" data-react-helmet="true" name="theme-color" />
     <meta name="description" content="Totally not intended for s0me1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="./images/blob_dance.gif" type="image/gif" />
@@ -124,6 +160,20 @@
     <!--div style="flex: content; padding: 4vw">
       <h2>Don't let the party die!</h2>
     </div-->
+    <button id="rewindBtn" onclick="rewindToDefault()"
+            style="
+            width: 380px;
+            height: 150px;
+            position: absolute;
+            left: 50%;
+            transform: translate(-65%, -0%);
+            background-color: rgb(2, 2, 2);
+            color: rgb(179, 0, 0);
+            font-size: 80px;
+margin-bottom: 500px" hidden = "hidden">
+        rewind
+        
+    </button>
     <div
       style="
         position: absolute;
@@ -138,15 +188,23 @@
         width="200"
         height="200"
       /-->
-        <video id="VIDEO_SKULL_ROT" src="./video/skull_rotate.mp4">
+        <video id="VIDEO_SKULL_ROT" src="./video/skull_rotate.mp4" style="
+            left:20%">
         </video>
         
+        
         <button onclick="playOrPauseAudio()" style="
+                width: 380px;
+                height: 150px;
                 position: absolute;
                 left: 50%;
                 top: 50%;
-                transform: translate(-50%, -50%);">
-            Click Me!
+                transform: translate(-65%, -50%);
+                background-color: rgb(2, 2, 2);
+                color: rgb(0, 0, 102);
+                font-size: 80px;
+margin-top: 325px">
+            spin.
         </button>
         
     </div>
